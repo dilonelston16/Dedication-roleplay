@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const session = require('express-session');
 const passport = require('passport');
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -8,6 +9,13 @@ const { initDiscordStrategy, db } = require('./config/discordStrategy');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Ensure DB directory exists for session store
+const dbDir = path.join(__dirname, 'db');
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 
 // Passport
 initDiscordStrategy(passport);
@@ -19,12 +27,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    store: new SQLiteStore({ db: 'sessions.sqlite', dir: path.join(__dirname, 'db') }),
+    store: new SQLiteStore({ db: 'sessions.sqlite', dir: dbDir }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
