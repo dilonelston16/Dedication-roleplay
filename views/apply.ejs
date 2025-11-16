@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apply - Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Department Application</h1>
+
+    <form method="POST" action="/apply" class="form-card">
+      <label for="department">Department</label>
+      <select id="department" name="department" required>
+        <option value="">Select a department</option>
+        <% departments.forEach(function(d) { %>
+          <option value="<%= d %>"><%= d %></option>
+        <% }) %>
+      </select>
+
+      <label for="about">Why do you want to join this department?</label>
+      <textarea id="about" name="about" rows="5" required></textarea>
+
+      <button type="submit" class="btn-primary">Submit Application</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>

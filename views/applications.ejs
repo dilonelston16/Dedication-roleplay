@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Applications - Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Applications</h1>
+    <p>Only staff with the proper roles can see and manage this page.</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Applicant</th>
+          <th>Department</th>
+          <th>About</th>
+          <th>Status</th>
+          <th>Submitted</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% applications.forEach(function(a) { %>
+          <tr>
+            <td><%= a.id %></td>
+            <td><%= a.discord_username %></td>
+            <td><%= a.department %></td>
+            <td><%= a.about %></td>
+            <td><%= a.status %></td>
+            <td><%= a.created_at %></td>
+            <td>
+              <form method="POST" action="/applications/<%= a.id %>/accept" style="display:inline;">
+                <button type="submit" class="btn-small">Accept</button>
+              </form>
+              <form method="POST" action="/applications/<%= a.id %>/reject" style="display:inline;">
+                <button type="submit" class="btn-small btn-danger">Reject</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>

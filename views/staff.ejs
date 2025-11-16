@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff - Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Staff Team</h1>
+    <p>These are the people who run Dedication Roleplay.</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Discord</th>
+          <th>Rank / Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% staff.forEach(function(s) { %>
+          <tr>
+            <td><%= s.discord_username %></td>
+            <td><%= s.role %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>

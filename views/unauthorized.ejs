@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unauthorized - Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Access Denied</h1>
+    <p>You don&apos;t have permission to view this page. If you think this is an error, contact server staff.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>

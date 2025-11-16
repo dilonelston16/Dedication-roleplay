@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Welcome, <%= user.discord_username %></h1>
+    <p>Your current role: <strong><%= user.role %></strong></p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Apply for a Department</h2>
+        <p>Ready to join LEO, Fire, Civilian or Dispatch?</p>
+        <a href="/apply" class="btn-primary">Go to Application</a>
+      </div>
+
+      <div class="card">
+        <h2>Join Discord</h2>
+        <p>All in-game comms and announcements live in our Discord.</p>
+        <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Open Discord</a>
+      </div>
+
+      <div class="card">
+        <h2>Applications (Staff)</h2>
+        <p>Staff with the correct role can review and accept/deny applications.</p>
+        <a href="/applications" class="btn-secondary">View Applications</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>

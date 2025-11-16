@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dedication Roleplay</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-main">Dedication</span>
+      <span class="logo-sub">Roleplay</span>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/staff">Staff</a>
+      <a href="/apply">Apply</a>
+      <a href="<%= discordInvite %>" target="_blank" class="btn-discord">Join Discord</a>
+
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin/users">Admin</a>
+        <% } %>
+        <a href="/applications">Applications</a>
+        <span class="user-tag"><%= user.discord_username %> (<%= user.role %>)</span>
+        <a href="/logout" class="btn-secondary">Logout</a>
+      <% } else { %>
+        <a href="/login" class="btn-primary">Login with Discord</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Dedication Roleplay</h1>
+      <p>A serious GTA V roleplay community built on structure, story and dedication.</p>
+      <div class="hero-buttons">
+        <a href="<%= discordInvite %>" target="_blank" class="btn-discord-large">Join the Discord</a>
+        <% if (user) { %>
+          <a href="/dashboard" class="btn-primary">Go to Dashboard</a>
+        <% } else { %>
+          <a href="/login" class="btn-primary">Login with Discord</a>
+        <% } %>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Departments</h2>
+        <p>Apply for LEO, Fire/EMS, Communications or Civilian Operations through our website.</p>
+      </div>
+      <div class="card">
+        <h2>Staff Team</h2>
+        <p>Meet our staff team and see who keeps Dedication Roleplay running smoothly.</p>
+      </div>
+      <div class="card">
+        <h2>Applications</h2>
+        <p>Log in with Discord, submit an application and get it reviewed by staff.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Dedication Roleplay · GTA V Roleplay Community</p>
+  </footer>
+</body>
+</html>
